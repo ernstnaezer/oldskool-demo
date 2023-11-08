@@ -6,7 +6,12 @@ LINKER = wlink
 OBJDIR = .\build
 LIBS = .\LIB\USM\USMPWS.LIB
 
-OBJECTS = $(OBJDIR)\demo.obj $(OBJDIR)\vesa.obj $(OBJDIR)\sound.obj $(OBJDIR)\timer.obj $(OBJDIR)\graphics.obj $(OBJDIR)\framebuf.obj  
+OBJECTS = $(OBJDIR)\demo.obj &
+          $(OBJDIR)\vesa.obj &
+          $(OBJDIR)\sound.obj &
+          $(OBJDIR)\timer.obj &
+          $(OBJDIR)\graphics.obj &
+          $(OBJDIR)\framebuf.obj
 
 TARGET = demo.exe
 
