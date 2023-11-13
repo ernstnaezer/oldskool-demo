@@ -1,11 +1,7 @@
+// from https://github.com/majiccode/OldSkool/
+
 #ifndef __VGA_H
 #define __VGA_H
-
-// uint8_t  *VGAbuffer  = (uint8_t *)0xA0000;
-// uint16_t  VGAxmin     = 0;
-// uint16_t  VGAxmax     = 320;
-// uint16_t  VGAymin     = 0;
-// uint16_t  VGAymax     = 200;
 
 void VGAset_mode(int mode);
 #pragma aux VGAset_mode =\
