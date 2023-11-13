@@ -14,7 +14,9 @@ typedef struct {
 }  FRAMEBUFFER;
 
 FRAMEBUFFER* framebuffer_new(size_t width, size_t height);
-void framebuffer_free(FRAMEBUFFER* framebuffer);
-void blit_to_lfb(FRAMEBUFFER* framebuffer, SURFACE* lfb);
+void framebuffer_release(FRAMEBUFFER* framebuffer);
+void framebuffer_clear(FRAMEBUFFER* framebuffer);
+void framebuffer_copy(FRAMEBUFFER* src, FRAMEBUFFER* dst);
+void blit_to_lfb(FRAMEBUFFER* framebuffer, SURFACE* screen);
 
 #endif

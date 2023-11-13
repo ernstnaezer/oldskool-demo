@@ -2,6 +2,16 @@
 #include <dos.h>
 #include <conio.h>
 
+/**
+ * For some reason the timer included in the USM player crashes the application 
+ * with a Stack Overflow. I can't be bothered to debug that at this point in time.
+ * 
+ * Make sure to initialize the timer _before_ the music player, as the player samples 
+ * the clock speed to determine the correct playback speed. 
+ *
+ * If you start timer afterwards, you'll have some really slow and low pitched playback.
+ */
+
 #define PIT_CTRL 0x43
 #define PIT_COUNTER0 0x40
 #define PIT_FREQUENCY 1193182L
@@ -35,7 +45,7 @@ void timer_init(unsigned hz){
     _enable();
 }
 
-void timer_deinit(){
+void timer_release(){
     _disable();
 
     // Restore the old timer ISR

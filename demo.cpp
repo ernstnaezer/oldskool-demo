@@ -9,46 +9,48 @@
 #include "lib/framebuf.h"
 #include "lib/graphics.h"
 
+#include "parts/intro.h"
+
 bool debugmode;
 
 int main(void) {
 
-    int     err;
-    SURFACE *screen;
+    SURFACE* screen = NULL;
+    FRAMEBUFFER* framebuffer = NULL;
 
-    sound_init("./assets/music/mtz_aldj.xm");
-
-    // initalise VESA driver:
-    err=VESAdetect();
-    if(err) VESAerror(err);
-
-    screen=VESAopen_surface(320, 240, 32, LINEAR_MODE);
-    if(!screen) {
-        printf("320x240x32bits (LFB) not present!!!\n");
-        exit(1);
-    }                
-
-    FRAMEBUFFER* framebuffer = framebuffer_new(320, 240);
-    draw_fullscreen_gradient(framebuffer);
-    blit_to_lfb(framebuffer, screen);
-
+    // system
     timer_init(70);
+    sound_init("./assets/music/mtz_aldj.xm");
+    graphics_init(320, 240);
+
+    framebuffer = framebuffer_new(320, 240);
+
+    // demo parts
+    intro_init();
+
+    // jump into graphics mode
+    screen = vesa_init(320, 240);
+
+    // and go
+
     sound_do();
+    intro_do(framebuffer, screen);
 
-    getch();
-    
-    timer_deinit();
-    sound_deinit();
+    // draw_fullscreen_gradient(framebuffer);
+    // blit_to_lfb(framebuffer, screen);
+    // getch();
 
+    // release system
+    vesa_release(screen);
     framebuffer_free(framebuffer);
 
-    VESAclose_surface(screen);
+    sound_release();
+    graphics_release();
+   
+    timer_release();
 
-    // shutdown VESA:
-    VESAshutdown();
-
-    // set mode back to dos:
-    VESAset_mode(0x3);
-
+    // release parts
+    intro_release();
+    
     return 0;
 }

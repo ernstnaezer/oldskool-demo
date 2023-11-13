@@ -18,6 +18,29 @@ static uint8_t  *pmcode = NULL;
 static void     *pm_set_display_start;
 static void     *pm_set_bank;
 
+SURFACE* vesa_init(size_t width, size_t height) {
+
+    int err =VESAdetect();
+    if(err) VESAerror(err);
+
+    SURFACE* screen = VESAopen_surface(320, 240, 32, LINEAR_MODE);
+    if(!screen) {
+        printf("320x240x32bits (LFB) not present!!!\n");
+        exit(1);
+    }
+
+    return screen;
+}
+
+void vesa_release(SURFACE* screen) {
+    if(screen == NULL) return;
+
+    VESAclose_surface(screen);
+    VESAshutdown();
+
+    VESAset_mode(0x3);
+}
+
 void VESAerror(int err)
 {
     switch(err) {

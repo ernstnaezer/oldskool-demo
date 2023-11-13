@@ -7,6 +7,7 @@
 #include <string.h>
 #include <conio.h>
 #include <dos.h>
+#include "vga.h"
 
 #define DPMI_INT    0x31
 
@@ -106,6 +107,9 @@ typedef struct {
 // functions:
 typedef     void (*VESAset_display_start_t)(int x, int y);
 typedef     void (*VESAset_bank_t)(int bank);
+
+SURFACE*    vesa_init(size_t with, size_t height);
+void        vesa_release(SURFACE* screen);
 
 int         VESAdetect(void);
 void        VESAshutdown(void);

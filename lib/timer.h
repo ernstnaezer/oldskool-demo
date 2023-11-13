@@ -3,6 +3,6 @@
 
 extern volatile unsigned long Timer; 
 void timer_init(unsigned hz);
-void timer_deinit();
+void timer_release();
 
 #endif

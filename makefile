@@ -11,7 +11,10 @@ OBJECTS = $(OBJDIR)\demo.obj &
           $(OBJDIR)\sound.obj &
           $(OBJDIR)\timer.obj &
           $(OBJDIR)\graphics.obj &
-          $(OBJDIR)\framebuf.obj
+          $(OBJDIR)\framebuf.obj &
+          $(OBJDIR)\tga_load.obj &
+          $(OBJDIR)\intro.obj &
+          $(OBJDIR)\sinbol.obj &
 
 TARGET = demo.exe
 
@@ -20,6 +23,8 @@ all: $(TARGET)
 
 $(OBJDIR)\demo.obj: demo.cpp
 	$(CC) $(CFLAGS) $< -fo=$@
+
+# System code
 
 $(OBJDIR)\vesa.obj: lib\vesa.cpp
 	$(CC) $(CFLAGS) $< -fo=$@
@@ -34,6 +39,17 @@ $(OBJDIR)\framebuf.obj: lib\framebuf.cpp
 	$(CC) $(CFLAGS) $< -fo=$@
 
 $(OBJDIR)\graphics.obj: lib\graphics.cpp
+	$(CC) $(CFLAGS) $< -fo=$@
+
+$(OBJDIR)\tga_load.obj: lib\tga_load.cpp
+	$(CC) $(CFLAGS) $< -fo=$@
+
+# Demo parts
+
+$(OBJDIR)\intro.obj: parts\intro.cpp
+	$(CC) $(CFLAGS) $< -fo=$@
+
+$(OBJDIR)\sinbol.obj: parts\sinbol.cpp
 	$(CC) $(CFLAGS) $< -fo=$@
 
 $(TARGET) : $(OBJECTS)

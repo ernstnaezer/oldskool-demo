@@ -7,6 +7,12 @@ extern bool debugmode;
 
 USM	*music;
 
+volatile unsigned long MusicTimer = 0;
+
+void timer(void) {
+	MusicTimer++;
+}
+
 void sound_init(char *filename) {
 	printf("sound: init\n");
 
@@ -44,7 +50,7 @@ void sound_do(){
     }
 }
 
-void sound_deinit() {
+void sound_release() {
 	printf("sound: de-init\n");
 
 	printf("sound: stop play\n");
